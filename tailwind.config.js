@@ -7,8 +7,10 @@ module.exports = {
     extend: {
       backgroundImage: {
         'hero-pattern': "url('../src/assets/homebanner.webp')",
-      },
+      }
     },
   },
-  plugins: [],
+  // For Tailwind CSS v3.3+, you don't need the line-clamp plugin
+  // as it's included by default. You can remove the plugins section entirely
+  // plugins: []
 }

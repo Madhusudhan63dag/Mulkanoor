@@ -1,16 +1,65 @@
 import React, { useState } from 'react';
-import { FaBars, FaTimes, FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaBars, FaTimes, FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaChevronDown } from 'react-icons/fa';
 import logo from '../assets/logo.png';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [activeDropdown, setActiveDropdown] = useState(null);
 
     const menuItems = [
-        { title: 'Home', path: '#home' },
-        { title: 'About Us', path: '#about' },
-        { title: 'Our Services', path: '#services' },
-        { title: 'Products', path: '#products' },
-        { title: 'Contact Us', path: '#contact' }
+        {
+            title: 'Home',
+            path: '#home'
+            // Home no longer has submenu
+        },
+        {
+            title: 'Discover Us',
+            path: '#about',
+            submenu: [
+                { title: 'Our Story', path: '#history' },
+                { title: 'Mission & Vision', path: '#mission' },
+                { title: 'Leadership', path: '#leadership' },
+                { title: 'Milestones', path: '#awards' },
+                { title: 'Endorsed by Esteemed Voices', path: '#awards' },
+                { title: 'Organization Structure', path: '#awards' },
+            ]
+        },
+        {
+            title: 'Farmers Voice',
+            path: '#home'
+            // Home no longer has submenu
+        },
+        {
+            title: 'Product',
+            path: '#services',
+            submenu: [
+                { title: 'Rice', path: '#agri-support' },
+                { title: 'Paddy', path: '#financial' },
+                { title: 'Cotton', path: '#training' },
+            ]
+        },
+        {
+            title: 'Our Pillars Of Success',
+            path: '#products',
+            submenu: [
+                { title: 'Financial Services', path: '#dairy' },
+                { title: 'Agri Inputs', path: '#agricultural' },
+                { title: 'Agri Extension Services', path: '#seeds' },
+                { title: 'Value-Added Services', path: '#seeds' },
+                { title: 'Insurance Services & Pension', path: '#seeds' },
+                { title: 'Welfare Services', path: '#seeds' },
+            ]
+        },
+        {
+            title: 'Awards & Accolades',
+            path: '#home'
+            // Home no longer has submenu
+        },
+        {
+            title: 'Our Winning Formula',
+            path: '#home'
+            // Home no longer has submenu
+        }
     ];
 
     const socialLinks = [
@@ -19,6 +68,10 @@ const Navbar = () => {
         { icon: <FaInstagram />, url: '#', color: 'hover:text-pink-400' },
         { icon: <FaLinkedin />, url: '#', color: 'hover:text-blue-500' },
     ];
+
+    const handleDropdownClick = (index) => {
+        setActiveDropdown(activeDropdown === index ? null : index);
+    };
 
     return (
         <div className="relative">
@@ -59,29 +112,70 @@ const Navbar = () => {
                 </div>
             </nav>
 
-            {/* Animated Dropdown Menu */}
+            {/* Updated Dropdown Menu */}
             <div className={`
                 fixed w-full transform transition-transform duration-300 ease-in-out mt-[76px]
                 ${isOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
                 backdrop-blur-lg bg-white/60 shadow-lg border-b border-white/20 rounded-b-2xl z-40
+                max-h-[calc(100vh-76px)] overflow-y-hidden
             `}>
-                <ul className="max-w-2xl mx-auto py-6">
-                    {menuItems.map((item, index) => (
-                        <li key={index}
-                            className="transform hover:scale-105 transition-all duration-200"
-                            style={{ animationDelay: `${index * 100}ms` }}
-                        >
-                            <a
-                                href={item.path}
-                                className="flex items-center gap-4 px-8 py-4 text-gray-800 hover:bg-white/50 rounded-xl m-2 backdrop-blur-sm"
-                                onClick={() => setIsOpen(false)}
-                            >
-                                <span className="text-2xl">{item.icon}</span>
-                                <span className="text-lg font-medium">{item.title}</span>
-                            </a>
-                        </li>
-                    ))}
-                </ul>
+                <div className="max-w-4xl mx-auto py-6 px-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {menuItems.map((item, index) => (
+                            <div key={index} className="relative bg-white/20 rounded-xl backdrop-blur-sm">
+                                {item.submenu ? (
+                                    <div className="h-full">
+                                        <div
+                                            className={`
+                                                flex items-center justify-between px-6 py-4 cursor-pointer
+                                                hover:bg-white/30 rounded-t-xl transition-all duration-300
+                                                ${activeDropdown === index ? 'bg-white/30' : ''}
+                                            `}
+                                            onClick={() => handleDropdownClick(index)}
+                                        >
+                                            <span className="text-lg font-medium text-gray-800">{item.title}</span>
+                                            <FaChevronDown
+                                                className={`transition-transform duration-300 
+                                                ${activeDropdown === index ? 'rotate-180' : ''}`}
+                                            />
+                                        </div>
+                                        <div className={`
+                                            transition-all duration-300 ease-in-out
+                                            ${activeDropdown === index ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0'}
+                                            overflow-hidden bg-white/10
+                                        `}>
+                                            <ul className="p-4">
+                                                {item.submenu?.map((subItem, subIndex) => (
+                                                    <li key={subIndex}>
+                                                        <a
+                                                            href={subItem.path}
+                                                            className="block py-2 px-4 text-gray-600 hover:text-gray-800 
+                                                                hover:bg-white/50 rounded-lg transition-all duration-200
+                                                                hover:translate-x-2"
+                                                            onClick={() => setIsOpen(false)}
+                                                        >
+                                                            {subItem.title}
+                                                        </a>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <a
+                                        href={item.path}
+                                        className="flex items-center px-6 py-4 text-gray-800 
+                                            hover:bg-white/30 rounded-xl transition-all duration-300
+                                            hover:translate-x-2"
+                                        onClick={() => setIsOpen(false)}
+                                    >
+                                        <span className="text-lg font-medium">{item.title}</span>
+                                    </a>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     );

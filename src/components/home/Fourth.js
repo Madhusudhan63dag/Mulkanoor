@@ -77,7 +77,7 @@ const Fourth = () => {
                         <button
                             onClick={() => handleToggle(index)}
                             className={`
-                                w-full p-4 md:p-6 flex items-center justify-between text-white 
+                                w-full p-4 md:p-6 flex items-center justify-between
                                 hover:bg-white/10 transition-colors
                                 ${openIndex === index ? 'bg-white/10' : ''}
                             `}
@@ -94,7 +94,7 @@ const Fourth = () => {
                             overflow-hidden transition-all duration-300 bg-white/5
                             ${openIndex === index ? 'max-h-48 p-4 md:p-6' : 'max-h-0'}
                         `}>
-                            <p className="text-white/90 text-base md:text-lg">
+                            <p className=" text-base md:text-lg">
                                 {item.content}
                             </p>
                         </div>

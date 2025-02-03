@@ -5,6 +5,7 @@ import Second from '../components/home/Second';
 import { Third } from '../components/home/Third';
 import Fourth from '../components/home/Fourth';
 import Five from '../components/home/Five';
+import Six from '../components/home/Six';
 
 const Home = () => {
     const [darkOverlay, setDarkOverlay] = useState(false);
@@ -43,7 +44,7 @@ const Home = () => {
                     <HeroBanner />
                 </div>
 
-                <div className="">
+                <div className="bg-white text-black">
                     <div className="container mx-auto px-4 py-16">
                         <Second />
                     </div>
@@ -55,6 +56,9 @@ const Home = () => {
                     </div>
                     <div className="container mx-auto px-4 py-16">
                         <Five />
+                    </div>
+                    <div className="container mx-auto px-4 py-16">
+                        <Six />
                     </div>
                 </div>
             </div>

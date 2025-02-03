@@ -75,7 +75,7 @@ export const Third = () => {
     return (
         <div className="px-4 md:px-8 bg-transparent">
             <div>
-                <h1 className='text-2xl md:text-5xl text-center font-medium text-white'>Farmers' Voice : What they Say about Us</h1>
+                <h1 className='text-2xl md:text-5xl text-center font-medium'>Farmers' Voice : What they Say about Us</h1>
                 <div className='mt-8 md:mt-20'>
                     <div className='flex flex-col md:flex-row gap-6 md:gap-3'>
                         {cardsData.map((card, index) => (
